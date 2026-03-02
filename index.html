@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Health Messenger | Teleconsult</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  background:#F9FAFB;
+  color:#111827;
+  transition:.3s;
+}
+
+body.dark{
+  background:#0F172A;
+  color:#E5E7EB;
+}
+
+/* ================= HEADER ================= */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 40px;
+  background:white;
+  box-shadow:0 4px 10px rgba(0,0,0,.06);
+}
+
+body.dark .header{
+  background:#1E293B;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:45px;
+}
+
+.brand{
+  font-size:20px;
+  font-weight:700;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.header-right a{
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:500;
+}
+
+.icon-btn{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:18px;
+  color:inherit;
+}
+
+/* ================= PROFILE MENU ================= */
+.profile-wrapper{position:relative;}
+.profile-icon{font-size:26px;cursor:pointer;}
+
+.profile-menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:38px;
+  background:white;
+  width:200px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  overflow:hidden;
+  z-index:999;
+}
+
+body.dark .profile-menu{background:#1E293B;}
+
+.profile-menu a{
+  padding:12px;
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+.profile-menu a:hover{
+  background:#F3F4F6;
+}
+body.dark .profile-menu a:hover{
+  background:#334155;
+}
+
+/* ================= CONTAINER ================= */
+.container{
+  max-width:1200px;
+  margin:40px auto;
+  padding:20px;
+}
+
+/* ================= SECTION ================= */
+.section{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:25px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+body.dark .section{
+  background:#020617;
+  border:1px solid #1E293B;
+}
+
+.section h3{margin-bottom:10px;}
+
+/* ================= FORM ================= */
+label{
+  display:block;
+  margin-top:12px;
+  font-weight:600;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:6px;
+  border:1px solid #CBD5E1;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea{
+  background:#020617;
+  color:#E5E7EB;
+  border:1px solid #1E293B;
+}
+
+textarea{resize:vertical;}
+
+/* ================= BUTTON ================= */
+button{
+  margin-top:15px;
+  padding:12px 20px;
+  background:#0FB9B1;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:hover{opacity:.9;}
+
+/* ================= SLOTS ================= */
+.slots{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+
+.slot{
+  padding:12px;
+  background:#ECFDF5;
+  border:2px solid #10B981;
+  border-radius:8px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.slot.selected{
+  background:#10B981;
+  color:white;
+}
+
+/* ================= VIDEO ================= */
+#jitsi-container{
+  width:100%;
+  height:500px;
+  border-radius:12px;
+  overflow:hidden;
+  display:none;
+}
+
+/* ================= FOOTER ================= */
+.footer{
+  background:#020617;
+  color:#CBD5E1;
+  margin-top:80px;
+  padding:50px 20px 20px;
+}
+
+.footer-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+}
+
+.footer h3{color:#22c55e;margin-bottom:12px;}
+.footer h4{margin-bottom:10px;}
+.footer a{
+  display:block;
+  text-decoration:none;
+  color:#CBD5E1;
+  margin-bottom:6px;
+}
+
+.footer-bottom{
+  margin-top:20px;
+  text-align:center;
+  font-size:14px;
+  color:#94A3B8;
+}
+
+/* ================= MODAL ================= */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:1000;
+}
+
+.modal-content{
+  background:white;
+  width:360px;
+  padding:30px;
+  border-radius:14px;
+  margin:120px auto;
+  position:relative;
+}
+
+body.dark .modal-content{background:#1E293B;}
+
+.modal-content h3{text-align:center;margin-bottom:20px;}
+.modal-content input{margin-bottom:12px;}
+
+.close{
+  position:absolute;
+  top:10px;
+  right:14px;
+  font-size:22px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="header-left">
+    <img src="assets/logo.png" class="logo">
+    <span class="brand">Health Messenger</span>
+  </div>
+
+  <nav class="header-right">
+    <a href="#"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="#" onclick="openAuthModal()">
+      <i class="fa-solid fa-right-to-bracket"></i> Login / Signup
+    </a>
+    <button class="icon-btn" onclick="toggleDarkMode()">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <div class="profile-wrapper">
+      <i class="fa-solid fa-user-circle profile-icon"
+         onclick="toggleProfileMenu()"></i>
+      <div class="profile-menu" id="profileMenu">
+        <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
+        <a href="#"><i class="fa-solid fa-calendar-check"></i> Bookings</a>
+        <a href="#" onclick="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= TELECONSULT CONTENT ================= -->
+<div class="container">
+
+<div class="section">
+<h3>📅 Book Teleconsultation</h3>
+
+<label>Select Doctor</label>
+<select>
+<option>Dr. Rajesh (General Physician)</option>
+<option>Dr. Ananya (Cardiologist)</option>
+<option>Dr. Suresh (Diabetologist)</option>
+</select>
+
+<label>Select Date</label>
+<input type="date">
+
+<label>Available Slots</label>
+<div class="slots">
+<div class="slot">10:00 AM</div>
+<div class="slot">11:00 AM</div>
+<div class="slot">12:00 PM</div>
+<div class="slot">04:00 PM</div>
+<div class="slot">05:00 PM</div>
+</div>
+
+<button onclick="bookTeleconsult()">Book & Pay ₹500</button>
+</div>
+
+<div class="section">
+<h3>📝 Pre-Visit Information</h3>
+<textarea rows="4" placeholder="Symptoms / Notes"></textarea>
+<input type="file">
+</div>
+
+<div class="section">
+<h3>🎥 Teleconsult Meeting</h3>
+<div id="jitsi-container"></div>
+</div>
+
+<div class="section">
+<h3>📄 Post-Consult Notes</h3>
+<textarea rows="4"></textarea>
+<input type="file">
+<button>Save Consultation</button>
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+<div class="footer-grid">
+<div>
+<h3>Health Messenger</h3>
+<p>Your trusted partner for lab tests and AI health insights.</p>
+</div>
+<div>
+<h4>Quick Links</h4>
+<a href="#">Home</a>
+<a href="#">Book Tests</a>
+<a href="#" onclick="openAuthModal()">Login / Signup</a>
+</div>
+<div>
+<h4>Services</h4>
+<p>Blood Tests</p>
+<p>ECG</p>
+<p>Doctor Consultation</p>
+</div>
+<div>
+<h4>Contact</h4>
+<p>📞 +91 9XXXXXXXXX</p>
+<p>💬 WhatsApp Support</p>
+</div>
+</div>
+<div class="footer-bottom">
+© 2025 Health Messenger. All rights reserved.
+</div>
+</footer>
+
+<!-- ================= AUTH MODAL ================= -->
+<div class="modal" id="authModal">
+<div class="modal-content">
+<span class="close" onclick="closeAuthModal()">×</span>
+<h3>Staff Login</h3>
+<input placeholder="Staff ID">
+<input type="password" placeholder="Password">
+<button>Login</button>
+</div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://meet.jit.si/external_api.js"></script>
+<script>
+let selectedSlot=null;
+
+document.querySelectorAll('.slot').forEach(s=>{
+  s.onclick=()=>{
+    document.querySelectorAll('.slot').forEach(x=>x.classList.remove('selected'));
+    s.classList.add('selected');
+    selectedSlot=s.innerText;
+  }
+});
+
+function bookTeleconsult(){
+  if(!selectedSlot){alert("Select slot");return;}
+  startMeeting("HealthMessenger_"+Math.floor(Math.random()*100000));
+}
+
+function startMeeting(room){
+  const c=document.getElementById("jitsi-container");
+  c.style.display="block";
+  new JitsiMeetExternalAPI("meet.jit.si",{roomName:room,parentNode:c});
+}
+
+function toggleProfileMenu(){
+  profileMenu.style.display=profileMenu.style.display==="block"?"none":"block";
+}
+
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+}
+
+function openAuthModal(){
+  authModal.style.display="block";
+}
+function closeAuthModal(){
+  authModal.style.display="none";
+}
+function logout(){alert("Logged out");}
+</script>
+
+</body>
+</html>
